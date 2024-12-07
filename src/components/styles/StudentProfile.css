@@ -1,0 +1,160 @@
+/* Profile Container Styling */
+.profile-container {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Fade-in animation for the container */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Profile Card Styling */
+.profile-card {
+  margin-top: 20px;
+  animation: slideUp 0.8s ease-out;
+}
+
+/* Slide-up animation for the profile card */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Avatar Styling */
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Avatar hover effect */
+.profile-avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+}
+
+/* Profile Details Styling */
+.profile-details {
+  font-size: 18px;
+  animation: fadeInDetails 1.2s ease-in;
+}
+
+/* Fade-in animation for details */
+@keyframes fadeInDetails {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.profile-details p {
+  margin: 10px 0;
+  opacity: 0;
+  animation: fadeInText 0.8s ease-in forwards;
+}
+
+.profile-details p:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.profile-details p:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Edit Form Styling */
+.edit-form .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+  animation: fadeInForm 1s ease-in;
+}
+
+@keyframes fadeInForm {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.edit-form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.edit-form .form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Button Styling */
+.edit-form .btn {
+  margin: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-form .btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .profile-container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile-details {
+    font-size: 16px;
+  }
+}
