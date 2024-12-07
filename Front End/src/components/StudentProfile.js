@@ -1,77 +1,112 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../components/styles/StudentProfile.css';
+import './styles/StudentProfile.css';
 
-const StudentProfile = ({ userId }) => {
-  const [student, setStudent] = useState(null);
-  const [formData, setFormData] = useState({ name: '', email: '' });
+const StudentProfile = ({ user, profilePic, setProfilePic, setUser }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    name: user?.name || '',
+    email: user?.email || '',
+    profilePic: user?.profilePic || profilePic || '',
+  });
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    const fetchStudent = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/users/${userId}`);
-        setStudent(response.data);
-        setFormData({ name: response.data.name, email: response.data.email });
-      } catch (err) {
-        console.error('Failed to fetch student data:', err);
-      }
-    };
-    fetchStudent();
-  }, [userId]);
+  const handleChange = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+  };
 
-  const saveChanges = async () => {
+  const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/users/${userId}`, formData);
-      setStudent({ ...student, ...formData });
+      setSuccessMessage('');
+      setErrorMessage('');
+
+      // Update profile via API
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `http://localhost:5000/api/students/${user.id}`,
+        formData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      // Update user state and profilePic
+      setUser(response.data);
+      setProfilePic(response.data.profilePic);
       setIsEditing(false);
+      setSuccessMessage('Profile updated successfully!');
     } catch (err) {
-      console.error('Failed to update profile:', err);
+      console.error('Error updating profile:', err);
+      setErrorMessage('Failed to update profile. Please try again.');
     }
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      name: user?.name || '',
+      email: user?.email || '',
+      profilePic: user?.profilePic || profilePic || '',
+    });
+    setIsEditing(false);
   };
 
   return (
     <div className="profile-container">
-      <h2>Student Profile</h2>
-      {student && (
-        <div className="profile-card">
-          <img src={student.avatar || 'https://via.placeholder.com/150'} alt="Avatar" className="profile-avatar" />
-          {isEditing ? (
-            <form className="edit-form">
-              <div className="form-group">
-                <label>Name</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
-              </div>
-              <button onClick={saveChanges} className="btn btn-primary">
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+      <div className="profile-card">
+        <img
+          src={formData.profilePic || 'https://via.placeholder.com/150'}
+          alt="Profile"
+          className="profile-avatar"
+        />
+        {isEditing ? (
+          <form className="edit-form" onSubmit={(e) => e.preventDefault()}>
+            <div className="form-group">
+              <label>Name</label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => handleChange('name', e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleChange('email', e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Profile Picture URL</label>
+              <input
+                type="text"
+                value={formData.profilePic}
+                onChange={(e) => handleChange('profilePic', e.target.value)}
+              />
+            </div>
+            <div className="button-group">
+              <button type="button" className="btn btn-primary" onClick={handleSave}>
                 Save
               </button>
-              <button onClick={() => setIsEditing(false)} className="btn btn-secondary">
+              <button type="button" className="btn btn-secondary" onClick={handleCancel}>
                 Cancel
               </button>
-            </form>
-          ) : (
-            <div>
-              <p><strong>Name:</strong> {student.name}</p>
-              <p><strong>Email:</strong> {student.email}</p>
-              <button onClick={() => setIsEditing(true)} className="btn btn-primary">
-                Edit Profile
-              </button>
             </div>
-          )}
-        </div>
-      )}
+          </form>
+        ) : (
+          <div className="profile-details">
+            <h2>{formData.name}</h2>
+            <p><strong>Email:</strong> {formData.email}</p>
+            <button type="button" className="btn btn-primary" onClick={() => setIsEditing(true)}>
+              Edit Profile
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -2,23 +2,30 @@
   "dependencies": {
     "axios": "^1.7.9",
     "bcrpyt": "^2.0.0",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^8.8.4"
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "mongoose": "^8.8.4",
+    "react-icons": "^5.4.0"
   },
   "name": "thoughtsphere",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "npm-run-all --parallel server client",
+    "server": "cd backend && node server.js",
+    "client": "cd Front End && npm start"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "npm-run-all": "^4.1.5"
+  }
 }

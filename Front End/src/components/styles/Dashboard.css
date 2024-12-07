@@ -1,0 +1,102 @@
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .stats-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .stat-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-icon {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .stat-card h2 {
+    font-size: 1.8rem;
+    margin: 10px 0;
+  }
+  
+  .stat-card p {
+    color: #555;
+  }
+  
+  .recent-activity {
+    margin-top: 30px;
+    text-align: left;
+  }
+  
+  .recent-activity h2 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .recent-activity ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .recent-activity li {
+    background: #f4f4f4;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .quick-actions {
+    margin-top: 30px;
+  }
+  
+  .quick-actions h2 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #218838;
+  }
+  
