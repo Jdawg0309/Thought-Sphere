@@ -4,17 +4,17 @@ const flashcardSchema = new mongoose.Schema({
   question: { type: String, required: true },
   answer: { type: String, required: true },
   category: { type: String, default: 'Uncategorized' },
-  createdAt: { type: Date, default: Date.now },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
-const studentSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }, // Ensure this is hashed
-  profilePic: { type: String, default: 'https://via.placeholder.com/150' }, // Default profile picture
+  password: { type: String, required: true },
+  profilePic: { type: String, default: 'https://via.placeholder.com/150' },
   quizzesTaken: { type: Number, default: 0 },
   totalCorrect: { type: Number, default: 0 },
-  flashcards: [flashcardSchema], // Array of embedded flashcards
+  flashcards: [flashcardSchema], // Embed flashcards in the User schema
 });
 
-module.exports = mongoose.model('Student', studentSchema);
+module.exports = mongoose.model('User', userSchema);

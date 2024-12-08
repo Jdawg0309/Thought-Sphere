@@ -14,7 +14,7 @@ const FlashcardForm = ({ setFlashcards }) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:5000/api/flashcards',
+        'http://localhost:5000/api/users/flashcards',
         { question, answer, category }, // Include category in request
         { headers: { Authorization: `Bearer ${token}` } }
       );
