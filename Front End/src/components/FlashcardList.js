@@ -5,10 +5,10 @@ import FlashcardForm from './FlashcardForm';
 import './styles/Flashcards.css';
 
 const FlashcardList = () => {
-  const [flashcards, setFlashcards] = useState([]);
-  const [error, setError] = useState('');
+  const [flashcards, setFlashcards] = useState([]); // Flashcards state
+  const [error, setError] = useState(''); // Error state
 
-  // Fetch flashcards on component mount
+  // Fetch flashcards from the server on component mount
   useEffect(() => {
     const fetchFlashcards = async () => {
       try {
@@ -16,7 +16,7 @@ const FlashcardList = () => {
         const response = await axios.get('http://localhost:5000/api/users/flashcards', {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setFlashcards(response.data); // Store fetched flashcards in state
+        setFlashcards(response.data); // Update state with fetched flashcards
       } catch (err) {
         setError('Failed to fetch flashcards.');
         console.error('Error fetching flashcards:', err.message);
@@ -30,12 +30,14 @@ const FlashcardList = () => {
   const addFlashcard = async (newFlashcard) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/users/flashcards', newFlashcard, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setFlashcards((prevFlashcards) => [...prevFlashcards, response.data]); // Update state with the new flashcard
+      const response = await axios.post(
+        'http://localhost:5000/api/users/flashcards',
+        newFlashcard,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setFlashcards((prevFlashcards) => [...prevFlashcards, response.data]); // Update state immediately
     } catch (err) {
-      setError('Error adding flashcard.');
+      setError('Failed to add flashcard.');
       console.error('Error adding flashcard:', err.message);
     }
   };
@@ -58,11 +60,8 @@ const FlashcardList = () => {
     <div className="flashcard-list">
       <h1>Your Flashcards</h1>
       {error && <p className="error-message">{error}</p>}
-      
       {/* FlashcardForm for adding new flashcards */}
       <FlashcardForm addFlashcard={addFlashcard} />
-
-      {/* Display flashcards or a fallback message */}
       {flashcards.length > 0 ? (
         flashcards.map((flashcard) => (
           <FlashcardCard
