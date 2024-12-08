@@ -1,0 +1,196 @@
+/* Flashcards List Container */
+.flashcard-list {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Fade-in Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Flashcard Card */
+  .flashcard-card {
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  /* Slide-up Animation */
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .flashcard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Flashcard Content */
+  .flashcard-card h3 {
+    font-size: 1.2rem;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .flashcard-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  /* Flashcard Buttons */
+  .flashcard-card .btn {
+    margin: 5px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+  
+  .flashcard-card .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .flashcard-card .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  .flashcard-card .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .flashcard-card .btn-danger:hover {
+    background-color: #a71d2a;
+    transform: translateY(-2px);
+  }
+  
+  /* Flashcard Form */
+  .flashcard-form {
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    animation: fadeInForm 0.8s ease-in;
+  }
+  
+  /* Form Fade-in Animation */
+  @keyframes fadeInForm {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .flashcard-form h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .flashcard-form input,
+  .flashcard-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  .flashcard-form input:focus,
+  .flashcard-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .flashcard-form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+  
+  .flashcard-form button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+  }
+  
+  /* Recent Activity Fade-in */
+  .recent-activity ul li {
+    animation: fadeInItem 0.5s ease-in;
+  }
+  
+  @keyframes fadeInItem {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .flashcard-list {
+      width: 90%;
+    }
+  
+    .flashcard-card h3 {
+      font-size: 1rem;
+    }
+  
+    .flashcard-card p {
+      font-size: 0.9rem;
+    }
+  
+    .flashcard-form input,
+    .flashcard-form textarea {
+      font-size: 0.9rem;
+    }
+  
+    .flashcard-form button {
+      font-size: 0.9rem;
+    }
+  }
+  
