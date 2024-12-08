@@ -8,74 +8,35 @@ import Dashboard from './components/Dashboard';
 import FlashcardList from './components/FlashcardList'; // Import FlashcardList component
 
 const App = () => {
-  const [user, setUser] = useState(null); // State to manage logged-in user
+  const [user, setUser] = useState(null);
 
   return (
     <div>
-      {/* Pass user and setUser to Navbar */}
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        {/* Home Route */}
-        <Route
-          path="/"
-          element={
-            <div className="container">
-              <h1>Welcome to ThoughtSphere</h1>
-            </div>
-          }
-        />
-
-        {/* Login Route */}
-        <Route
-          path="/login"
-          element={<Login setUser={setUser} />}
-        />
-
-        {/* Signup Route */}
-        <Route
-          path="/signup"
-          element={<Signup />}
-        />
-
-        {/* Student Profile Route */}
+        <Route path="/" element={<h1>Welcome to ThoughtSphere</h1>} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/studentProfile"
           element={
             user ? (
               <StudentProfile user={user} />
             ) : (
-              <div className="container">
-                <h2>Please log in to view your profile.</h2>
-              </div>
+              <h2>Please log in to view your profile.</h2>
             )
           }
         />
-
-        {/* Dashboard Route */}
         <Route
           path="/dashboard"
           element={
-            user ? (
-              <Dashboard user={user} />
-            ) : (
-              <div className="container">
-                <h2>Please log in to access the dashboard.</h2>
-              </div>
-            )
+            user ? <Dashboard user={user} /> : <h2>Please log in to access the dashboard.</h2>
           }
         />
-
-        {/* Flashcards Route */}
         <Route
           path="/flashcards"
           element={
-            user ? (
-              <FlashcardList />
-            ) : (
-              <div className="container">
-                <h2>Please log in to view your flashcards.</h2>
-              </div>
-            )
+            user ? <FlashcardList /> : <h2>Please log in to access your flashcards.</h2>
           }
         />
       </Routes>

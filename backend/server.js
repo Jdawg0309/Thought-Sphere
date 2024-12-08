@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
-const flashcardsRoute = require('./routes/flashcards');
 
 dotenv.config();
 
@@ -24,6 +23,5 @@ mongoose
   .catch((err) => console.error('MongoDB connection error:', err));
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/flashcards', flashcardsRoute);
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
