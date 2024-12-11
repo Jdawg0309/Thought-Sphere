@@ -19,7 +19,7 @@
   "scripts": {
     "start": "npm-run-all --parallel server client",
     "server": "cd backend && node server.js",
-    "client": "cd Front End && npm start"
+    "client": "cd FrontEnd && npm start"
   },
   "keywords": [],
   "author": "",
