@@ -47,7 +47,7 @@ const Dashboard = ({ user, stats, recentActivities }) => {
       {/* Quick Actions Section */}
       <div className="quick-actions">
         <h2>Quick Actions</h2>
-        <button className="btn btn-primary" onClick={() => alert('Add a flashcard')}>
+        <button className="btn btn-primary"  onClick={() => navigate('/flashcards')}>
           Add Flashcard
         </button>
         <button className="btn btn-secondary" onClick={() => alert('Start a quiz')}>
