@@ -99,4 +99,115 @@
   .btn-secondary:hover {
     background-color: #218838;
   }
-  
+  /*
+  form css
+  */
+ 
+ .form-style {
+  max-width: 70%;
+  margin: 20px;
+  margin-inline: auto;
+  height: 350px;
+  text-align: center;
+  border: dotted blueviolet 2px;
+  border-radius: 25px;
+
+  /* border: 1px solid red; */
+  position: relative;
+  margin-top: 10px;
+  padding: 10px;
+  /* position:relative for .prevBtn and .nextBtn position:absolute; */
+
+}
+.form-style-cat {
+  max-width: 70%;
+  margin: 20px;
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border: dotted blueviolet 2px;
+  border-radius: 25px;
+  margin-bottom: 45px;
+    
+    display: flex;
+    align-items: center;
+  /* border: 1px solid red; */
+  margin-top: 10px;
+  padding: 10px;
+  /* position:relative for .prevBtn and .nextBtn position:absolute; */
+
+}
+  .formbold-main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+  }
+
+
+  .formbold-input-flex {
+    margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+   justify-self: center;
+    align-items: center;
+    
+  }
+  .formbold-input-flex > div {
+    width: 50%;
+  }
+
+
+  .formbold-form-input {
+    width: 80%;
+    padding: 13px 22px;
+    border-radius: 5px;
+    border: 1px solid #DDE3EC;
+    background: #FFFFFF;
+    font-weight: 500;
+    font-size: 16px;
+    color: #07074D;
+    outline: none;
+    resize: none;
+  }
+
+  .formbold-form-cat {
+    width: 60%;
+    padding: 13px 22px;
+    margin-left: 20px;
+    border-radius: 5px;
+    border: 1px solid #DDE3EC;
+    background: #FFFFFF;
+    font-weight: 500;
+    font-size: 16px;
+    color: #07074D;
+    outline: none;
+    resize: none;
+  }
+  .formbold-form-label {
+    color: #07074D;
+    font-size: 14px;
+    line-height: 24px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .formbold-btn {
+    text-align: center;
+    width:80%;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 14px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #6A64F1;
+    color: white;
+    cursor: pointer;
+    margin-top: 25px;
+  }
+  .formbold-btn:hover {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+  }
+
