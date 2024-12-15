@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import StudentProfile from './components/StudentProfile';
 import Dashboard from './components/Dashboard';
-
+import FlashcardPage from './components/FlashcardPage'; // Import FlashcardPage component
 const App = () => {
   const [user, setUser] = useState(null); // State to manage logged-in user
 
@@ -49,7 +49,12 @@ const App = () => {
             )
           }
         />
-
+   {/* Flashcards Route */}
+        <Route
+          path="/flashcards"
+          element={<FlashcardPage />}
+        />
+      </Routes>
         {/* Dashboard Route */}
         <Route
           path="/dashboard"
