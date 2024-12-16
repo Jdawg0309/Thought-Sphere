@@ -5,38 +5,44 @@ const User = require('../models/User'); // User model
 const authMiddleware = require('../middleware/authMiddleware'); // Authentication middleware
 const router = express.Router();
 
-// JWT Secret
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  console.error('FATAL ERROR: JWT_SECRET is not defined.');
+  process.exit(1); // Exit the process if the JWT_SECRET is not defined
+}
 
 // POST: Register a user
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
 
-  try {
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
+  // Simple validation
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
 
+  try {
+    // Check if user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase().trim() });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    // Generate salt and hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Create a new user and save to DB
     const newUser = new User({
       name: name.trim(),
       email: email.toLowerCase().trim(),
-      password: hashedPassword,
-      flashcards: [], // Initialize with an empty array for flashcards
+      password: hashedPassword
     });
 
     await newUser.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
-    console.error('Registration error:', err.message);
-    res.status(500).json({ message: 'Server error. Please try again later.' });
+    console.error('Registration error:', err);
+    res.status(500).json({ message: 'Server error. Please try again later.', error: err.message });
   }
 });
 
