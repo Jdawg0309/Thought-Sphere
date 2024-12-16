@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import './styles/FlashcardCard.css';  // Make sure to update the path if necessary
+import './styles/FlashcardForm.css';  // Ensure this CSS file path is correct
 
 // Function to call OpenAI API to generate flashcards
 const generateFlashcard = async () => {
@@ -11,7 +10,7 @@ const generateFlashcard = async () => {
       max_tokens: 100
     }, {
       headers: {
-        'Authorization': `Bearer YOUR_OPENAI_API_KEY`,  // Replace YOUR_OPENAI_API_KEY with your actual API key
+        'Authorization': `Bearer YOUR_OPENAI_API_KEY`,  // Replace with your actual API key
         'Content-Type': 'application/json'
       }
     });
@@ -65,24 +64,9 @@ const FlashcardForm = ({ addFlashcard }) => {
   return (
     <form className="flashcard-form" onSubmit={handleSubmit}>
       {error && <p className="error-message">{error}</p>}
-      <input
-        type="text"
-        placeholder="Question"
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Answer"
-        value={answer}
-        onChange={(e) => setAnswer(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Category (optional)"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      />
+      <input type="text" placeholder="Question" value={question} onChange={(e) => setQuestion(e.target.value)} />
+      <input type="text" placeholder="Answer" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+      <input type="text" placeholder="Category (optional)" value={category} onChange={(e) => setCategory(e.target.value)} />
       <button type="submit">Add Flashcard</button>
       <button type="button" onClick={handleGenerateFlashcard}>Generate Flashcard</button>
     </form>
