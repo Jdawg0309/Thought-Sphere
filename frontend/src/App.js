@@ -14,7 +14,12 @@ const App = () => {
     <div>
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path="/" element={<h1 className="text-center mt-5">Welcome to ThoughtSphere</h1>} />
+        <Route path="/" element={
+          <div className="text-center mt-5">
+            <h1>Welcome to ThoughtSphere</h1>
+            <p>Revolutionize your learning experience with our unique flashcard system!</p>
+          </div>
+        } />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<Signup />} />
         <Route

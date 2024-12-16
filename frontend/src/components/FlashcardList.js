@@ -31,13 +31,26 @@ const FlashcardList = () => {
             const response = await axios.post(
                 'http://localhost:5000/api/users/flashcards',
                 newFlashcard,
-                { headers: { Authorization: `Bearer ${token}` }
-            });
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
             setFlashcards(prevFlashcards => [...prevFlashcards, response.data]);
         } catch (err) {
             setError('Failed to add flashcard.');
             console.error('Error adding flashcard:', err.message);
         }
+    };
+
+    const handleDelete = async (id) => {
+      try {
+        const token = localStorage.getItem('token');
+        await axios.delete(`http://localhost:5000/api/users/flashcards/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setFlashcards(prevFlashcards => prevFlashcards.filter(card => card._id !== id));
+      } catch (err) {
+        setError('Error deleting flashcard.');
+        console.error('Error deleting flashcard:', err.message);
+      }
     };
 
     return (
@@ -50,6 +63,7 @@ const FlashcardList = () => {
                     <FlashcardCard
                         key={flashcard._id}
                         flashcard={flashcard}
+                        onDelete={handleDelete}
                     />
                 ))}
             </div>
