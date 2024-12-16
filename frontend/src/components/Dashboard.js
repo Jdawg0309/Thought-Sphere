@@ -15,7 +15,7 @@ const Dashboard = ({ user, stats, recentActivities }) => {
       <div className="stats-section">
         <div className="stat-card">
           <FaChartPie className="stat-icon" />
-          <h2>{stats?.flashcards || 0}</h2>
+          <h2>{user.flashcards || 0}</h2>
           <p>Total Flashcards</p>
         </div>
         <div className="stat-card">

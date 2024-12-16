@@ -5,81 +5,56 @@ import FlashcardForm from './FlashcardForm';
 import './styles/Flashcards.css';
 
 const FlashcardList = () => {
-  const [flashcards, setFlashcards] = useState([]); // Flashcards state
-  const [error, setError] = useState(''); // Error state
+    const [flashcards, setFlashcards] = useState([]);
+    const [error, setError] = useState('');
 
-  // Fetch flashcards from the server on component mount
-  useEffect(() => {
-    const fetchFlashcards = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/users/flashcards', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setFlashcards(response.data); // Update state with fetched flashcards
-      } catch (err) {
-        setError('Failed to fetch flashcards.');
-        console.error('Error fetching flashcards:', err.message);
-      }
+    useEffect(() => {
+        const fetchFlashcards = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get('http://localhost:5000/api/users/flashcards', {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                setFlashcards(response.data);
+            } catch (err) {
+                setError('Failed to fetch flashcards.');
+                console.error('Error fetching flashcards:', err.message);
+            }
+        };
+
+        fetchFlashcards();
+    }, []);
+
+    const addFlashcard = async (newFlashcard) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.post(
+                'http://localhost:5000/api/users/flashcards',
+                newFlashcard,
+                { headers: { Authorization: `Bearer ${token}` }
+            });
+            setFlashcards(prevFlashcards => [...prevFlashcards, response.data]);
+        } catch (err) {
+            setError('Failed to add flashcard.');
+            console.error('Error adding flashcard:', err.message);
+        }
     };
 
-    fetchFlashcards();
-  }, []);
-
-  // Add a new flashcard
-  const addFlashcard = async (newFlashcard) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(
-        'http://localhost:5000/api/users/flashcards',
-        newFlashcard,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setFlashcards((prevFlashcards) => {
-        const updatedFlashcards = [...prevFlashcards, response.data];
-        console.log('Flashcard added:', response.data); // Log the added flashcard
-        console.log('Updated flashcards list:', updatedFlashcards); // Log the updated list of flashcards
-        return updatedFlashcards;
-      });
-    } catch (err) {
-      setError('Failed to add flashcard.');
-      console.error('Error adding flashcard:', err.message);
-    }
-  };
-  
-  // Delete a flashcard
-  const handleDelete = async (id) => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/users/flashcards/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setFlashcards((prevFlashcards) => prevFlashcards.filter((card) => card._id !== id)); // Remove from state
-    } catch (err) {
-      setError('Error deleting flashcard.');
-      console.error('Error deleting flashcard:', err.message);
-    }
-  };
-
-  return (
-    <div className="flashcard-list">
-      <h1>Your Flashcards</h1>
-      {error && <p className="error-message">{error}</p>}
-      {/* FlashcardForm for adding new flashcards */}
-      <FlashcardForm addFlashcard={addFlashcard} />
-      {flashcards.length > 0 ? (
-        flashcards.map((flashcard) => (
-          <FlashcardCard
-            key={flashcard._id}
-            flashcard={flashcard}
-            onDelete={handleDelete}
-          />
-        ))
-      ) : (
-        <p>No flashcards available. Add your first one!</p>
-      )}
-    </div>
-  );
+    return (
+        <div className="container mt-3">
+            <h1 className="text-center mb-4">Your Flashcards</h1>
+            {error && <div className="alert alert-danger" role="alert">{error}</div>}
+            <FlashcardForm addFlashcard={addFlashcard} />
+            <div className="flashcard-grid">
+                {flashcards.map(flashcard => (
+                    <FlashcardCard
+                        key={flashcard._id}
+                        flashcard={flashcard}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default FlashcardList;

@@ -1,0 +1,48 @@
+.flashcard-card {
+    perspective: 1000px;
+    width: 300px; /* Adjust width as necessary */
+    height: 200px; /* Adjust height as necessary */
+    margin: 20px auto;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden; /* Crucial for hiding the reverse side when flipped */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.card-front {
+    background-color: #fff;
+    color: #000;
+}
+
+.card-back {
+    background-color: #007bff;
+    color: #fff !important;
+    transform: rotateY(180deg); /* Rotate the back 180 degrees, ready for flip */
+}
+
+.is-flipped {
+    transform: rotateY(180deg); /* Flips the inner card to show the back */
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
