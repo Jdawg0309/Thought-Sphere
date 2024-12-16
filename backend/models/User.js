@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   profilePic: { type: String, default: 'https://via.placeholder.com/150' },
   quizzesTaken: { type: Number, default: 0 },
   totalCorrect: { type: Number, default: 0 },
-  flashcards: [flashcardSchema], // Embed flashcards in the User schema
+  flashcards: [flashcardSchema], // Embedded flashcards
 });
 
 module.exports = mongoose.model('User', userSchema);

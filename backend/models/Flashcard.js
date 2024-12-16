@@ -9,7 +9,7 @@ const flashcardSchema = new mongoose.Schema({
   question: {
     type: String,
     required: true,
-    trim: true, // Removes extra spaces
+    trim: true,
   },
   answer: {
     type: String,

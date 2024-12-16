@@ -1,35 +1,49 @@
 const express = require('express');
-const router = express.Router();
-const { verifyToken } = require('../middleware/authMiddleware'); // Updated path
 const Flashcard = require('../models/Flashcard');
+const router = express.Router();
 
-// POST: Add a new flashcard
-router.post('/', verifyToken, async (req, res) => {
+// GET all flashcards for the logged-in user
+router.get('/', async (req, res) => {
+  try {
+    const flashcards = await Flashcard.find({ userId: req.user._id });
+    res.status(200).json(flashcards);
+  } catch (err) {
+    console.error('Error fetching flashcards:', err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+// POST a new flashcard
+router.post('/', async (req, res) => {
   const { question, answer, category } = req.body;
 
   try {
     const newFlashcard = new Flashcard({
+      userId: req.user._id,
       question,
       answer,
       category,
-      user: req.user.id, // Assuming the user ID is included in the token
     });
+
     const savedFlashcard = await newFlashcard.save();
     res.status(201).json(savedFlashcard);
   } catch (err) {
     console.error('Error saving flashcard:', err);
-    res.status(500).json({ message: 'Server error while adding flashcard' });
+    res.status(500).json({ message: 'Server error.' });
   }
 });
 
-// GET: Retrieve flashcards for a user
-router.get('/', verifyToken, async (req, res) => {
+// DELETE a flashcard
+router.delete('/:id', async (req, res) => {
   try {
-    const flashcards = await Flashcard.find({ user: req.user.id });
-    res.status(200).json(flashcards);
+    const flashcard = await Flashcard.findByIdAndDelete(req.params.id);
+    if (!flashcard) {
+      return res.status(404).json({ message: 'Flashcard not found.' });
+    }
+    res.status(200).json({ message: 'Flashcard deleted.' });
   } catch (err) {
-    console.error('Error fetching flashcards:', err);
-    res.status(500).json({ message: 'Server error while fetching flashcards' });
+    console.error('Error deleting flashcard:', err);
+    res.status(500).json({ message: 'Server error.' });
   }
 });
 
