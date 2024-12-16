@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import StudentProfile from './components/StudentProfile';
 import Dashboard from './components/Dashboard';
-import FlashcardList from './components/FlashcardList'; // Import FlashcardList component
+import FlashcardList from './components/FlashcardList';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -14,7 +14,7 @@ const App = () => {
     <div>
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path="/" element={<h1>Welcome to ThoughtSphere</h1>} />
+        <Route path="/" element={<h1 className="text-center mt-5">Welcome to ThoughtSphere</h1>} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/signup" element={<Signup />} />
         <Route
@@ -23,20 +23,26 @@ const App = () => {
             user ? (
               <StudentProfile user={user} />
             ) : (
-              <h2>Please log in to view your profile.</h2>
+              <div className="alert alert-info text-center" role="alert">
+                Please log in to view your profile.
+              </div>
             )
           }
         />
         <Route
           path="/dashboard"
           element={
-            user ? <Dashboard user={user} /> : <h2>Please log in to access the dashboard.</h2>
+            user ? <Dashboard user={user} /> : <div className="alert alert-info text-center" role="alert">
+              Please log in to access the dashboard.
+            </div>
           }
         />
         <Route
           path="/flashcards"
           element={
-            user ? <FlashcardList /> : <h2>Please log in to access your flashcards.</h2>
+            user ? <FlashcardList /> : <div className="alert alert-info text-center" role="alert">
+              Please log in to access your flashcards.
+            </div>
           }
         />
       </Routes>

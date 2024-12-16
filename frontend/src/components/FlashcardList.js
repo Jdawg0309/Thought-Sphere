@@ -35,13 +35,18 @@ const FlashcardList = () => {
         newFlashcard,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setFlashcards((prevFlashcards) => [...prevFlashcards, response.data]); // Update state immediately
+      setFlashcards((prevFlashcards) => {
+        const updatedFlashcards = [...prevFlashcards, response.data];
+        console.log('Flashcard added:', response.data); // Log the added flashcard
+        console.log('Updated flashcards list:', updatedFlashcards); // Log the updated list of flashcards
+        return updatedFlashcards;
+      });
     } catch (err) {
       setError('Failed to add flashcard.');
       console.error('Error adding flashcard:', err.message);
     }
   };
-
+  
   // Delete a flashcard
   const handleDelete = async (id) => {
     try {

@@ -5,6 +5,33 @@ const User = require('../models/User');
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 
+router.post('/', async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+    const existingUser = await User.findOne({ email: email.toLowerCase().trim() });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = new User({
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      password: hashedPassword,
+      flashcards: []
+    });
+    await newUser.save();
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    console.error('Registration error:', err);
+    res.status(500).json({ message: 'Server error. Please try again later.' });
+  }
+});
+
+
 // POST: Register a user
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
@@ -63,7 +90,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// GET: Retrieve all flashcards for a user
+//GET: Retrieve all flashcards for a user
 router.get('/flashcards', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
